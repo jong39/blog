@@ -1,0 +1,16 @@
+<!--DOCTYPE html -->
+<html>
+
+<body>
+
+<h1>This is a {{title}} template. Working!</h1>
+<br><br>
+{% for obj in object_list %}
+{% url "posts:mydetail" id=obj.id %}
+{{obj.pk}} - <a href="{{ obj.get_absolute_url }}">{{obj.title}}</a> - {{obj.content}}
+<br>
+
+{% endfor %}
+</body>
+
+</html>
