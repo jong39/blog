@@ -11,7 +11,7 @@ def  post_create(request):
         instance = form.save(commit=False)
         #print(form.cleaned_data.get("title"))
         instance.save()
-        #message succes
+        #message succes123
         return HttpResponseRedirect(instance.get_absolute_url())
     # if request.method == "POST":
     #     print(request.POST.get("title"))
