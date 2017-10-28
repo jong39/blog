@@ -1,4 +1,5 @@
-from django.shortcuts import render, get_object_or_404
+from django.contrib import messages
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Post
 from .forms import PostForm
@@ -11,8 +12,11 @@ def  post_create(request):
         instance = form.save(commit=False)
         #print(form.cleaned_data.get("title"))
         instance.save()
-        #message succes123
+        #message succes
+        messages.success(request, "Successfully Created")
         return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        messages.success(request, "Not Successfully Created")
     # if request.method == "POST":
     #     print(request.POST.get("title"))
     #     print(request.POST.get("content"))
@@ -46,7 +50,9 @@ def  post_update(request, id=None):
         instance = form.save(commit=False)
         instance.save()
         #message sucees
+        messages.success(request, "<a href='#'>Successfully</a> Updated", extra_tags="ex_tag")
         return HttpResponseRedirect(instance.get_absolute_url())
+ 
     context = {
         "title": instance.title,
         "instance": instance,
@@ -54,8 +60,8 @@ def  post_update(request, id=None):
     }
     return render(request, "post_form.html", context)
 
-def  post_delete(request):
-    context = {
-        "title": "Delete"
-    }
-    return render(request, "index.html", context)
+def  post_delete(request, id=None):
+    instance = get_object_or_404(Post, id=id)
+    instance.delete()
+    messages.success(request, "<a href='#'>Successfully</a> Deleted", extra_tags="ex_tag")
+    return redirect("posts:list")

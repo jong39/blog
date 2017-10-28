@@ -1,7 +1,22 @@
 <!--DOCTYPE html -->
 <html>
 
+<style>
+.ex_tag {
+	color:#ff0000;
+	font-weight: bold;
+}
+</style>
+
 <body>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{% if "ex_tag" in message.tags %} {{message|safe}} {% else %} {{ message }} {% endif %}</li>
+    {% endfor %}
+</ul>
+{% endif %}
 
 <h1>This is a {{title}} template. Working!</h1>
 <br><br>
