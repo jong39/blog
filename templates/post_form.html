@@ -1,15 +1,10 @@
-<!--DOCTYPE html -->
-<html>
+{% extends "base.html" %}
 
-<body>
 
+{% block content %}
 <h1>Form</h1>
 <form method="post" action="">{% csrf_token %}
 {{form.as_p}}
 <input type="submit" value="Submit">
 </form>
-<br><br>
-
-</body>
-
-</html>
+{% endblock content %}
