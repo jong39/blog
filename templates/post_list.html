@@ -1,14 +1,26 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class='col-sm-6 col-sm-offset-3'>
+<h1>{{title}}</h1>
+<div class="row">
+	{% for obj in object_list %}
+ 
+	<div class='col-sm-12' style="margin-bottom: 20px;">
+		<div class='card'>
+			<div class="card-body">
+				<h3><a href="{{ obj.get_absolute_url }}">{{obj.title}}</a> <small>{{obj.timestamp|timesince}} ago</small></h3> 
+				<p>{{obj.content|linebreaks|truncatechars:60}}</p>
+				<p><a href="{{ obj.get_absolute_url }}" class="btn btn-primary" role="button">View</a></p>
+			</div>
 
-<h1>This is a {{title}} template. Working!</h1>
-<br><br>
-{% for obj in object_list %}
-{% url "posts:mydetail" id=obj.id %}
-{{obj.pk}} - <a href="{{ obj.get_absolute_url }}">{{obj.title}}</a> - {{obj.content}}
-<br>
+		</div>	
 
-{% endfor %}
+	</div>
+	<hr>
+ 	<!-- {% cycle "" "</div><div class='col-sm-12'><hr></div><div class='row'>" %}-->
 
+	{% endfor %}
+</div>
+</div>
 {% endblock content %}
