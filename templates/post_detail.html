@@ -1,13 +1,28 @@
 {% extends "base.html" %}
+{% load urlify %}
 
 {% block head_title %}{{ instance.title }} | {{ block.super }}{% endblock head_title %}
 
 {% block content %}
-<div class='col-sm-6 col-sm-offset-3'> 
-<h1>{{title}} <small>{{instance.timestamp}}</small></h1>
+<h1>{{title}}</h1>
  
-{{instance.content|linebreaks}}<br>
- 
+<div class='col-sm-6 col-sm-offset-3'>
+	<div class='card'> 
+	{% if instance.image %}
+		<img src='{{ instance.image.url }}' class='img-responsive'  style='width:100%' />
+	{% endif %}
+	<h1>{{instance.title}} <small>{% if instance.draft %} <span style="color:red">Draft</span> {% endif %} {{instance.publish}}</small></h1>
+	{% if instance.user.get_full_name %}
+	Author: {{instance.user.get_full_name}}<br>
+	{% endif %}
+
+<div class="fb-like" data-href="{{request.build_absolute_uri}}" data-layout="standard" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>
+
+	{{instance.content|linebreaks}}<br>
+	{{instance.content|urlify}}<br><br>
+{{request.build_absolute_uri}}
+	<div class="fb-comments" data-href="{{request.build_absolute_uri}}" data-numposts="5"></div>
+	</div>
 </div>
 
 {% endblock content %}
