@@ -50,6 +50,11 @@ class Post(models.Model):
     class Meta: #anything to do with not fields
         ordering = ["-timestamp", "-updated"]
 
+    def get_lower(self):
+        content = self.content
+        lower_content = content.lower()
+        return lower_content
+        
 
 def create_slug(instance, new_slug=None):
     slug = slugify(instance.title)

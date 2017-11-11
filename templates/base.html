@@ -33,8 +33,61 @@
 {% block content %}{% endblock content %}
 
 </div>
+<script
+  src="http://code.jquery.com/jquery-1.12.4.min.js"
+  integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+  crossorigin="anonymous"></script>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.6/marked.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".content-markdown").each(function(){
+			var content = $(this).text()
+			console.log(content)
+			var markedContent = marked(content)
+			console.log(markedContent)	
+			$(this).html(markedContent)	
+	})
+
+	// var titleItem = $("#id_title")
+	// $('#preview-title').text(titleItem.val())
+	var titleItem = $("#id_title")
+	
+	function setTitle(value){
+		$('#preview-title').html(value)
+	}
+
+	setTitle(titleItem.val())
+
+	titleItem.keyup(function(){
+		var newContent = $(this).val()
+		setTitle(newContent)
+	})
+
+
+
+	var contentItem = $("#id_content")
+	
+	function setContent(value){
+		$('#preview-content').html(value)
+	}
+
+	setContent(contentItem.val())
+
+	contentItem.keyup(function(){
+		var newContent = $(this).val()
+		setContent(newContent)
+	})
+
+
+
+})	
+</script>
+
+
 </body>
 </html>
 

@@ -5,8 +5,8 @@
 
 {% block content %}
 <h1>{{title}}</h1>
- 
-<div class='col-sm-6 col-sm-offset-3'>
+ <div class="fb-like" data-href="{{request.build_absolute_uri}}" data-layout="standard" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>
+<div class='col-sm-6 col-sm-offset-3' >
 	<div class='card'> 
 	{% if instance.image %}
 		<img src='{{ instance.image.url }}' class='img-responsive'  style='width:100%' />
@@ -16,10 +16,13 @@
 	Author: {{instance.user.get_full_name}}<br>
 	{% endif %}
 
-<div class="fb-like" data-href="{{request.build_absolute_uri}}" data-layout="standard" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>
-
-	{{instance.content|linebreaks}}<br>
+	<div class="content-markdown">
+	{{instance.content}}<br><br><br>
+	=================================
 	{{instance.content|urlify}}<br><br>
+	</div>
+
+
 {{request.build_absolute_uri}}
 	<div class="fb-comments" data-href="{{request.build_absolute_uri}}" data-numposts="5"></div>
 	</div>
